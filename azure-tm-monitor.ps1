@@ -168,7 +168,7 @@ function New-TrafficMonitorStatusReport {
 
 $profile = Get-TrafficManagerProfile -JSONConfiguration # Add a path to your json configuration
 $profile
-$dns = Get-TrafficManagerCurrentEndpoint -Name sso.ung.edu -PriorityEndpoint sso-dc.ung.edu
+$dns = Get-TrafficManagerCurrentEndpoint -Name # Name of the endpoint that needs to be monitored -PriorityEndpoint # Add the priority endpoint
 $endpointObj = New-EndpointObject -ProfileObject $profile -DNSObject $dns
 $obj = Test-TrafficManagerEndpoint -EndpointObject $endpointObj
 $endpointObj.DNS
