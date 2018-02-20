@@ -107,7 +107,7 @@ function Test-TrafficManagerEndpoint {
             if($endpoint.priority -eq 1) {
                 $status = $endpoint.endpointMonitorStatus
                 $result.Add("PriorityEndpoint",$endpoint.target)
-                if($status -eq "Offline") {
+                if($status -eq "Offline" -or $status -eq "Disabled" -or $status -eq "Inactive" -or $status -eq "Degraded") {
                     $result.Add("Online",$false)
                     # If false, test to see if DNS has switched over.
                     if($EndpointObject.DNS.CurrentEndpoint -ne $endpoint.target) {
