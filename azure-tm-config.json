@@ -1,0 +1,9 @@
+{
+    "auth_token" :  "",
+    "subscription": "",
+    "subscription_id" : "",
+    "client_id" : "",
+    "client_secret" : "",
+    "resource_group" : "",
+    "traffic_manager_profile" : ""
+} 
