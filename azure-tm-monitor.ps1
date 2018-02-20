@@ -147,7 +147,9 @@ function New-TrafficMonitorStatusReport {
                    ValueFromPipelineByPropertyName=$true,
                    Position=0)]
         [String[]]
-        $MailAddress
+        $MailAddress,
+	[String]
+	$SmtpServer
     )
     Process {
         # A basic message that will be sent out if fail-over has occurr ed.
@@ -158,7 +160,7 @@ function New-TrafficMonitorStatusReport {
             Send-MailMessage -BodyAsHtml:$true -From azure-tm@ung.edu `
                                                -To $MailAddress `
                                                -Body $message `
-                                               -SmtpServer relay.ung.edu `
+                                               -SmtpServer $SmtpServer `
                                                -Subject "Azure Traffic Manager Notification" `
                                                -ErrorAction Stop
          }
@@ -172,4 +174,4 @@ $dns = Get-TrafficManagerCurrentEndpoint -Name # Name of the endpoint that needs
 $endpointObj = New-EndpointObject -ProfileObject $profile -DNSObject $dns
 $obj = Test-TrafficManagerEndpoint -EndpointObject $endpointObj
 $endpointObj.DNS
-#New-TrafficMonitorStatusReport -ResultObject $obj -MailAddress {List of mail addresses}
+#New-TrafficMonitorStatusReport -ResultObject $obj -MailAddress {List of mail addresses} -SmtpServer {SMTPServerName}
