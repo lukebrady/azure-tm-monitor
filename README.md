@@ -1,4 +1,16 @@
-# azure-tm-monitor
-To use azure-tm-monitor you must first add your client, subscription, resource group, and traffic manager profile information to the azure-tm-config.json config file. You also need to change some of the parameters at the bottom of the script to allow you to monitor a certain endpoint and set a priority endpoint.
+# Azure Traffic Manager Monitor
 
-If you want to recieve email alerts, you will need to add the SMTP server and mail addresses that you would like to send to. Alerts are handled by the New-TrafficMonitorStatusReport cmdlet.
+Azure Traffic Manager Monitor is a PowerShell Module that gives you the ability to monitor your
+Azure Traffic Manager deployment. You can configure your connection using the azure-tm-config.json file
+in the Configuration.
+
+Below is an example of how to use Azure Traffic Manager Monitor:
+
+```powershell
+Import-Module azure-tm-monitor
+$profile = Get-TrafficManagerProfile -JSONConfiguration # Add a path to your json configuration
+$dns = Get-TrafficManagerCurrentEndpoint -Name # Name of the endpoint that needs to be monitored -PriorityEndpoint # Add the priority endpoint
+$endpointObj = New-EndpointObject -ProfileObject $profile -DNSObject $dns
+$obj = Test-TrafficManagerEndpoint -EndpointObject $endpointObj
+New-TrafficMonitorStatusReport -ResultObject $obj -MailAddress {List of mail addresses} -SmtpServer {SMTPServerName}
+```
