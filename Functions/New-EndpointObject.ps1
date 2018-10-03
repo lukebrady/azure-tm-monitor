@@ -1,4 +1,3 @@
-
 function New-EndpointObject {
     [CmdletBinding()]
     [Alias()]
